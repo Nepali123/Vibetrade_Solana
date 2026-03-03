@@ -37,6 +37,7 @@
 
    Then set:
 
+   - `JUPITER_API_KEY` — **Required** (get it from https://portal.jup.ag). Without this, quotes/swaps will fail (often `401 Unauthorized` or `fetch failed`).
    - `GEMINI_API_KEY` — Optional. Enables AI parsing (free-tier). Without it, the free rule-based parser handles common phrases
    - `GEMINI_MODEL` — Optional (defaults to `gemini-2.5-flash`)
    - `SOLANA_RPC_URL` — Optional (defaults to public mainnet)
@@ -50,7 +51,7 @@
 
    Open [http://localhost:3000](http://localhost:3000)
 
-### Example prompts (work with free parser, no API key)
+### Example prompts (work with free parser, no AI key)
 
 - "Buy 0.5 SOL worth of BONK"
 - "Sell 50% of my BONK"
@@ -61,14 +62,21 @@
 
 ## Supported tokens
 
-SOL, USDC, USDT, BONK, JUP, RAY, ORCA, mSOL, stSOL, WIF, POPCAT
+Common symbols are built-in (SOL, USDC, USDT, BONK, JUP, RAY, ORCA, mSOL, stSOL, WIF, POPCAT) and you can also use **mint addresses** for many other tokens.
 
 ## Tech stack
 
-- **Frontend**: Next.js 14 (App Router), TailwindCSS, Solana Wallet Adapter
+- **Frontend**: Next.js 16 (App Router), TailwindCSS, Solana Wallet Adapter
 - **Backend**: Next.js API routes
 - **AI**: Free rule parser + Gemini API (optional)
 - **Swaps**: Jupiter API (Metis v6)
+
+## Troubleshooting
+
+- **Quotes fail with `401 Unauthorized` or the UI shows `fetch failed`**
+  - Ensure `JUPITER_API_KEY` is set in `vibetrade/.env.local`
+  - Restart `npm run dev` after editing `.env.local`
+  - You can verify the dev server sees your env at `GET /api/debug-env`
 
 ## Project structure
 
